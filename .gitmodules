@@ -1,0 +1,3 @@
+[submodule "sdramctrl"]
+	path = sdramctrl
+	url = https://github.com/hellamps/3dparty-opencores-sdr-ctrl
