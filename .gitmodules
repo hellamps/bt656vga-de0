@@ -1,3 +1,6 @@
 [submodule "sdramctrl"]
 	path = sdramctrl
 	url = https://github.com/hellamps/3dparty-opencores-sdr-ctrl
+[submodule "vgalcd"]
+	path = vgalcd
+	url = https://github.com/hellamps/3dparty-opencores-vga_lcd.git
