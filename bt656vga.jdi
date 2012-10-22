@@ -1,6 +1,6 @@
 <sld_project_info>
   <file_info>
-    <file checksum="0x000D3129" device="EP3C16F484C6" path="bt656vga.sof" usercode="0xFFFFFFFF"/>
+    <file checksum="0x000F6287" device="EP3C16F484C6" path="bt656vga.sof" usercode="0xFFFFFFFF"/>
   </file_info>
   <hub_info ir_width="0" node_count="0"/>
   <node_info/>

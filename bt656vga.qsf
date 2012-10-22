@@ -44,7 +44,6 @@ set_global_assignment -name PROJECT_CREATION_TIME_DATE "16:03:09  OCTOBER 21, 20
 set_global_assignment -name LAST_QUARTUS_VERSION "12.0 SP2"
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
-set_global_assignment -name VERILOG_FILE bt656vga.v
 set_location_assignment PIN_B1 -to LEDG[9]
 set_location_assignment PIN_B2 -to LEDG[8]
 set_location_assignment PIN_C2 -to LEDG[7]
@@ -307,5 +306,17 @@ set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VERILOG_FILE sdramctrl/rtl/wb2sdrc/wb2sdrc.v
+set_global_assignment -name VERILOG_FILE sdrc_define.v
+set_global_assignment -name VERILOG_FILE sdramctrl/rtl/core/sdrc_req_gen.v
+set_global_assignment -name VERILOG_FILE sdramctrl/rtl/core/sdrc_core.v
+set_global_assignment -name VERILOG_FILE sdramctrl/rtl/core/sdrc_bs_convert.v
+set_global_assignment -name VERILOG_FILE sdramctrl/rtl/core/sdrc_bank_fsm.v
+set_global_assignment -name VERILOG_FILE sdramctrl/rtl/core/sdrc_bank_ctl.v
+set_global_assignment -name VERILOG_FILE sdramctrl/rtl/core/sdrc_xfr_ctl.v
+set_global_assignment -name VERILOG_FILE sdramctrl/rtl/lib/async_fifo.v
+set_global_assignment -name VERILOG_FILE sdramctrl/rtl/lib/sync_fifo.v
+set_global_assignment -name VERILOG_FILE sdramctrl/rtl/top/sdrc_top.v
+set_global_assignment -name VERILOG_FILE bt656vga.v
 set_global_assignment -name QIP_FILE sdram_pll.qip
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -199,12 +199,80 @@ assign	VGA_R	=	sVGA_R[3:0];
 assign	VGA_G	=	sVGA_G[3:0];
 assign	VGA_B	=	sVGA_B[3:0];
 
-
-
-sdram_pll clocker1(
+sdram_pll sdram_clocker(
 	CLOCK_50,
 	DRAM_CLK);
 
+wire sdr_init_done;
+wire RESETN;
+//--------------------------------------
+// Wish Bone Interface
+// -------------------------------------      
+parameter      dw              = 32;  // data width
+parameter      tw              = 8;   // tag id width
+parameter      bl              = 9;   // burst_lenght_width 
+wire                   wb_rst_i           ;
+wire                   wb_clk_i           ;
 
+wire                   wb_stb_i           ;
+wire                  wb_ack_o           ;
+wire [24:0]            wb_addr_i          ;
+wire                   wb_we_i            ; // 1 - Write , 0 - Read
+wire [dw-1:0]          wb_dat_i           ;
+wire [dw/8-1:0]        wb_sel_i           ; // Byte enable
+wire [dw-1:0]         wb_dat_o           ;
+wire                   wb_cyc_i           ;
+wire  [2:0]            wb_cti_i           ;
+
+sdrc_top u_dut(
+      // System 
+          .cfg_sdr_width      (2'b01              ), // 16 BIT SDRAM
+          .cfg_colbits        (2'b00              ), // 8 Bit Column Address
+
+/* WISH BONE */
+          .wb_rst_i           (!SD_WP_N            ),
+          .wb_clk_i           (CLOCK_50            ),
+
+          .wb_stb_i           (wb_stb_i           ),
+          .wb_ack_o           (wb_ack_o           ),
+          .wb_addr_i          (wb_addr_i          ),
+          .wb_we_i            (wb_we_i            ),
+          .wb_dat_i           (wb_dat_i           ),
+          .wb_sel_i           (wb_sel_i           ),
+          .wb_dat_o           (wb_dat_o           ),
+          .wb_cyc_i           (wb_cyc_i           ),
+          .wb_cti_i           (wb_cti_i           ), 
+
+/* Interface to SDRAMs */
+          .sdram_clk          (DRAM_CLK          ),
+          .sdram_resetn       (SD_WP_N             ),
+          .sdr_cs_n           (DRAM_CS_N           ),
+          .sdr_cke            (DRAM_CKE            ),
+          .sdr_ras_n          (DRAM_RAS_N          ),
+          .sdr_cas_n          (DRAM_CAS_N          ),
+          .sdr_we_n           (DRAM_WE_N           ),
+          .sdr_dqm            (DRAM_LDQM           ),
+          .sdr_ba             (DRAM_BA_            ),
+          .sdr_addr           (DRAM_ADDR           ), 
+          .sdr_dq             (DRAM_DQ             ),
+
+    /* Parameters */
+          .sdr_init_done      (sdr_init_done      ),
+          .cfg_req_depth      (2'h3               ),	        //how many req. buffer should hold
+          .cfg_sdr_en         (1'b1               ),
+          .cfg_sdr_mode_reg   (12'h033            ),
+          .cfg_sdr_tras_d     (4'h4               ),
+          .cfg_sdr_trp_d      (4'h2               ),
+          .cfg_sdr_trcd_d     (4'h2               ),
+          .cfg_sdr_cas        (3'h3               ),
+          .cfg_sdr_trcar_d    (4'h7               ),
+          .cfg_sdr_twr_d      (4'h1               ),
+          .cfg_sdr_rfsh       (12'h100            ), // reduced from 12'hC35
+          .cfg_sdr_rfmax      (3'h6               )
+
+);
+
+
+	
 
 endmodule
